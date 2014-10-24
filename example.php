@@ -4,8 +4,10 @@ include('app/OrderFormat.php');
 
 use app\OrderFormat;
 
-//$json = file_get_contents("http://10.224.195.39/ilive/getNarrationEvent?event=26338&country_code=BR&contentType=json&callback=sportsTimeLineCAPICallback");
+$json = file_get_contents("http://dsv-fe01.terra.com.br/cengine/ilive/getEventConfiguration?event=26577&country_code=mx&callback=json_event_configurationr&contentType=json");
 
-$orderFormat = new OrderFormat();
+$orderFormat = new OrderFormat([
+    'removeEmptyElements' => true
+]);
 $newJson = $orderFormat->orderJSON($json);
 echo htmlentities($newJson);

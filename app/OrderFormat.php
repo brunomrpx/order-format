@@ -8,6 +8,20 @@ class OrderFormat
 {
 
     /**
+     * Opções de ordenação da ordenação
+     * @var Array
+     */
+    public $options = [
+        'removeEmptyElements' => false
+    ];
+
+    public function __construct(Array $options = null) {
+        if ($options !== null) {
+            $this->options['removeEmptyElements'] = isset($options['removeEmptyElements']) ? $options['removeEmptyElements'] : $this->options['removeEmptyElements'];
+        }
+    }
+
+    /**
      * Ordenação de formato JSON
      *
      * @param  String $json
@@ -27,9 +41,13 @@ class OrderFormat
      */
     private function orderArray(&$array = null) {
         ksort($array);
-        foreach ($array as &$element) {
+        foreach ($array as $key => &$element) {
             if (gettype($element) == "array" && !empty($array)) {
                 $this->orderArray($element);
+            } else {
+                if ($this->options['removeEmptyElements'] && $element === "") {
+                    unset($array[$key]);
+                }
             }
         }
     }
