@@ -8,7 +8,7 @@ class OrderFormat
 {
 
     /**
-     * Opções de ordenação da ordenação
+     * Opções de ordenação
      * @var Array
      */
     public $options = [
